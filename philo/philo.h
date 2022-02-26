@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:29:48 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 09:58:48 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/02/26 14:36:26 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,19 @@ typedef struct s_info
 	t_philo			*philo;
 }				t_info;
 
-void	ft_putstr_fd(char *s, int fd);
-size_t	ft_strlen(const char *str);
-void	num_parser(int arg_num, char *str, t_info *info);
 void	error(int n);
-int		updated_current_time(t_philo *philo, char c);
+void	init(t_info *info);
 int		ft_eat(t_philo *philo);
-int		ft_sleep(t_philo *philo);
-void	ft_think(t_philo *philo);
-int		ft_usleep(t_philo *philo, char c);
 void	ft_die(t_philo *philo);
+void	main_free(t_info *info);
+void	ft_think(t_philo *philo);
+int		ft_sleep(t_philo *philo);
+size_t	ft_strlen(const char *str);
+void	locks_creater(t_info *info);
+void	philos_creator(t_info *info);
+void	ft_putstr_fd(char *s, int fd);
+int		ft_usleep(t_philo *philo, char c);
+int		updated_current_time(t_philo *philo, char c);
+void	num_parser(int arg_num, char *str, t_info *info);
 
 #endif

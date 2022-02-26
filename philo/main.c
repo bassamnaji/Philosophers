@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   initialize.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 15:01:53 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 09:14:38 by bnaji            ###   ########.fr       */
+/*   Created: 2022/01/28 19:31:52 by bnaji             #+#    #+#             */
+/*   Updated: 2022/02/26 14:34:25 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	reset(t_philo *philo)
+int	main(int ac, char **av)
 {
-	philo->n_of_philos = 0;
-	philo->t_2_die = 0;
-	philo->t_2_eat = 0;
-	philo->t_2_sleep = 0;
-	philo->philo_status = 0;
-	philo->philo_id = 0;
-	philo->n_times_of_eat = 0;
+	int			i;
+	t_info		info;
+
+	if (ac < 5 || ac > 6)
+		error(1);
+	i = 0;
+	init(&info);
+	while (++i < ac)
+		num_parser(i, av[i], &info);
+	locks_creater(&info);
+	philos_creator(&info);
+	main_free(&info);
+	return (0);
 }
