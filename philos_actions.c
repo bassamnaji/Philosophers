@@ -6,32 +6,43 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 15:18:10 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/20 21:25:31 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/02/26 10:08:04 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_eat(t_philo *philo)
+int	ft_eat(t_philo *philo)
 {
-	printf("%d %d has taken a fork\n", philo->c_time, philo->philo_id);
-	printf("%d %d is eating\n", philo->c_time, philo->philo_id);
-	usleep(1000 * philo->t_2_eat);
+	printf("%s%d %d is eating%s\n", IYELLOW,
+		updated_current_time(philo, 'c'), philo->philo_id + 1, NO_COLOR);
+	if (ft_usleep(philo, 'e'))
+		;
 	pthread_mutex_unlock(philo->l_lock);
 	pthread_mutex_unlock(philo->r_lock);
 	ft_sleep(philo);
+	return (0);
 }
 
-void	ft_sleep(t_philo *philo)
+int	ft_sleep(t_philo *philo)
 {
-	printf("%d %d is sleeping\n", philo->c_time, philo->philo_id);
-	usleep(1000 * philo->t_2_sleep);
+	printf("%s%d %d is sleeping%s\n", LIGHT_BLUE,
+		updated_current_time(philo, 'c'), philo->philo_id + 1, NO_COLOR);
+	if (ft_usleep(philo, 's'))
+		;
 	ft_think(philo);
+	return (0);
 }
 
 void	ft_think(t_philo *philo)
 {
-	printf("%d %d is thinking\n", philo->c_time, philo->philo_id);
-	// if (philo->t_2_die < 2)
-	// 	philo->t_2_die = 1;
+	printf("%s%d %d is thinking%s\n", PURPLE,
+		updated_current_time(philo, 'c'), philo->philo_id + 1, NO_COLOR);
+}
+
+void	ft_die(t_philo *philo)
+{
+	printf("%s%d %d died%s\n", RED,
+		updated_current_time(philo, 'c'), philo->philo_id + 1, NO_COLOR);
+	exit (0);
 }
