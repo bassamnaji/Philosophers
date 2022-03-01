@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:29:48 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 14:36:26 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/01 17:47:03 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ typedef struct s_philo
 	int				t_2_die;
 	int				t_2_eat;
 	int				t_2_sleep;
+	int				*is_dead;
+	int				just_died;
 	int				n_times_of_eat;
 	struct timeval	current_time;
 	unsigned long	c_time;
-	unsigned long	useless_time;
+	unsigned long	*useless_time;
 	int				cnt;
 	int				tmp;
 	unsigned long	ref_time;
@@ -48,6 +50,7 @@ typedef struct s_philo
 	int				time_diff_from_last_eat;
 	pthread_mutex_t	*r_lock;
 	pthread_mutex_t	*l_lock;
+	pthread_mutex_t	*death_lock;
 }				t_philo;
 
 typedef struct s_info
@@ -57,18 +60,21 @@ typedef struct s_info
 	int				t_2_eat;
 	int				t_2_sleep;
 	int				n_times_of_eat;
+	int				*is_dead;
+	unsigned long	*useless_time;
+	// pthread_mutex_t	*death_lock;
 	pthread_mutex_t	**locks;
 	pthread_t		*thread;
 	t_philo			*philo;
 }				t_info;
 
-void	error(int n);
 void	init(t_info *info);
 int		ft_eat(t_philo *philo);
 void	ft_die(t_philo *philo);
 void	main_free(t_info *info);
-void	ft_think(t_philo *philo);
+int		ft_think(t_philo *philo);
 int		ft_sleep(t_philo *philo);
+void	error(int n, t_info *info);
 size_t	ft_strlen(const char *str);
 void	locks_creater(t_info *info);
 void	philos_creator(t_info *info);

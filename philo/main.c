@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/28 19:31:52 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 14:34:25 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/01 16:36:17 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int ac, char **av)
 	t_info		info;
 
 	if (ac < 5 || ac > 6)
-		error(1);
+		error(1, &info);
 	i = 0;
 	init(&info);
 	while (++i < ac)

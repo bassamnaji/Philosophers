@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 10:52:28 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 11:18:55 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/01 17:47:41 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@ void	main_free(t_info *info)
 
 	if (info->thread)
 		free(info->thread);
+	if (info->is_dead)
+		free(info->is_dead);
+	if (info->useless_time)
+		free(info->useless_time);
 	if (info->philo)
 		free(info->philo);
 	if (info->locks)

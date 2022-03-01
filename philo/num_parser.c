@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:57:45 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 10:01:40 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/02/26 19:10:19 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 static void	check_n_store(int arg_num, unsigned long long nb, t_info *info)
 {
 	if (nb > 200 && arg_num == 1)
-		error(5);
+		error(5, info);
 	if (arg_num == 1)
 	{
 		info->philo = (t_philo *)malloc(sizeof(t_philo) * (nb));
+		if (!info->philo)
+			error(6, info);
 		info->thread = (pthread_t *)malloc(sizeof(pthread_t) * (nb));
-		if (!info->philo || !info->thread)
-			error(6);
+		if (!info->thread)
+			error(6, info);
 		info->n_of_philos = nb;
 	}
 	if (arg_num == 2)
@@ -46,18 +48,18 @@ void	num_parser(int arg_num, char *str, t_info *info)
 	while (str[i] == ' ')
 		i++;
 	if (str[i] == '-')
-		error(2);
+		error(2, info);
 	if (str[i] == '+')
 		i++;
 	while (str[i] >= '0' && str[i] <= '9')
 	{
 		nb = (nb * 10) + (str[i] - '0');
 		if (nb > 2147483647)
-			error(4);
+			error(4, info);
 		i++;
 		number_exist_flag = 1;
 	}
 	if (str[i] || !number_exist_flag)
-		error(3);
+		error(3, info);
 	check_n_store(arg_num, nb, info);
 }

@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 15:01:53 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 11:00:16 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/01 17:48:00 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	init(t_info *info)
 	info->t_2_sleep = 0;
 	info->n_times_of_eat = -1;
 	info->locks = NULL;
+	info->is_dead = NULL;
+	info->useless_time = NULL;
 	info->thread = NULL;
 	info->philo = NULL;
 }

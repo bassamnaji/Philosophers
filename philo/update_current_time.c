@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 15:20:52 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 10:17:43 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/01 17:53:09 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int	updated_current_time(t_philo *philo, char c)
 			+ philo->current_time.tv_usec / 1000;
 	else if (c == 'c')
 		philo->c_time = (philo->current_time.tv_sec * 1000
-				+ philo->current_time.tv_usec / 1000) - philo->useless_time;
+				+ philo->current_time.tv_usec / 1000) - *philo->useless_time;
 	return (philo->c_time);
 }
