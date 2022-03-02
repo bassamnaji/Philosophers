@@ -24,7 +24,7 @@ DATE = 26 - 02 - 2022
 C_FILES = main.c error.c free_all.c ft_putstr_fd.c\
 		ft_strlen.c ft_usleep.c initialize.c num_parser.c\
 		philos_actions.c update_current_time.c locks_handler.c\
-		philos_handler.c
+		philos_handler.c printer.c
 
 
 #These are the .c files for your project
@@ -46,14 +46,14 @@ OBJ_DIR = ./objs/
 NAME = philos
 
 all: header $(OBJ_NAME)
-	@gcc $(OBJ_NAME) -o $(NAME)
+	@gcc -pthread $(OBJ_NAME) -o $(NAME)
 	@echo "\t$(NO_COLOR)[$(GREEN)✓$(NO_COLOR)]   $(IYELLOW)Compilation Is Done\n$(NO_COLOR)"
 	@echo "$(BYELLOW)⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡"
 	@echo "$(BYELLOW)⚡\t\t\t\t\t\t\t\t\t$(BYELLOW)READY\t\t\t\t\t\t\t\t\t\t$(BYELLOW)⚡"
 	@echo "$(BYELLOW)⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡$(NO_COLOR)"
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c
-	@gcc ${CFLAG} -c $< -o $@ 
+	@gcc ${CFLAG} -pthread -c $< -o $@ 
 
 header:
 	@printf "\n%b" "$(LIGHT_BLUE)"

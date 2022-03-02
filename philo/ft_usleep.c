@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 11:16:44 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/01 17:08:01 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/02 08:16:12 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int	ft_usleep(t_philo *philo, char c)
 			philo->just_died = 1;
 			return (1);
 		}
+		usleep(200);
 	}
 	return (0);
 }

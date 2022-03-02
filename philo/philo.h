@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:29:48 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/01 17:47:03 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/02 08:31:18 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_info
 	int				n_times_of_eat;
 	int				*is_dead;
 	unsigned long	*useless_time;
-	// pthread_mutex_t	*death_lock;
+	pthread_mutex_t	*death_lock;
 	pthread_mutex_t	**locks;
 	pthread_t		*thread;
 	t_philo			*philo;
@@ -82,5 +82,8 @@ void	ft_putstr_fd(char *s, int fd);
 int		ft_usleep(t_philo *philo, char c);
 int		updated_current_time(t_philo *philo, char c);
 void	num_parser(int arg_num, char *str, t_info *info);
+void	*philo_manager(void *vargp);
+void	philo_init(t_info *info, int i);
+void	printer(t_philo *philo, char c);
 
 #endif
