@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:34:02 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/02 13:55:51 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/03 23:03:08 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,37 @@ void	*philo_manager(void *vargp)
 	philo->ref_time = *philo->useless_time;
 	while (philo->n_times_of_eat && !*philo->is_dead)
 	{
-		if (updated_current_time(philo, 'r') - philo->ref_time
-			> (unsigned long)philo->t_2_die)
-		{
-			if (*philo->is_dead)
-			{
-				*philo->l_fork = 1;
-				*philo->r_fork = 1;
-				return (NULL);
-			}
-			ft_die(philo);
-			printf("l_fork: %d\tr_fork: %d\n", *philo->l_fork, *philo->r_fork);
+		// if (updated_current_time(philo, 'r') - philo->ref_time
+		// 	> (unsigned long)philo->t_2_die)
+		// {
+		// 	if (*philo->is_dead)
+		// 	{
+		// 		*philo->l_fork = 1;
+		// 		*philo->r_fork = 1;
+		// 		return (NULL);
+		// 	}
+		// 	ft_die(philo);
+		// 	printf("l_fork: %d\tr_fork: %d\n", *philo->l_fork, *philo->r_fork);
+		// 	return (NULL);
+		// }
+		if (is_it_dead(philo))
 			return (NULL);
-		}
-		if (philo->n_of_philos % 2 && philo->philo_id == philo->n_of_philos - 1)
-			*philo->l_fork = 1;
-		if (*philo->r_fork && *philo->l_fork)
+		// if (philo->n_of_philos % 2 && philo->philo_id == philo->n_of_philos - 1)
+		// 	*philo->l_fork = 1;
+		pthread_mutex_lock(philo->locks);
+		if (!(philo->philo_id % 2) && *philo->l_fork && *philo->r_fork)
 		{
 			*philo->l_fork = 0;
 			*philo->r_fork = 0;
 			take_forks(philo);
 		}
+		else if (philo->philo_id % 2 && *philo->l_fork && *philo->r_fork)
+		{
+			*philo->r_fork = 0;
+			*philo->l_fork = 0;
+			take_forks(philo);
+		}
+		pthread_mutex_unlock(philo->locks);
 	}
 	return (NULL);
 }
@@ -77,30 +87,15 @@ void	philos_creator(t_info *info)
 	i = 0;
 	while (i < info->n_of_philos)
 	{
-		if (!(i % 2))
-			philo_init(info, i);
+		philo_init(info, i);
 		// if (!i)
 		// 	*info->useless_time = updated_current_time(info->philo, 'r');
-		i++;
-	}
-	usleep(100);
-	i = 0;
-	while (i < info->n_of_philos)
-	{
-		if (i % 2)
-			philo_init(info, i);
 		i++;
 	}
 	i = 0;
 	while (i < info->n_of_philos)
 	{
 		pthread_join(info->thread[i], NULL);
-		// if (info->philo[i].just_died)
-		// {
-		// 	j = 0;
-		// 	while (j < info->n_of_philos)
-		// 		pthread_mutex_unlock(info->philo[j++].l_lock);
-		// }
 		i++;
 	}
 	i = 0;

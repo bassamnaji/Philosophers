@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   check_if_dead.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/28 19:31:52 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/03 16:19:05 by bnaji            ###   ########.fr       */
+/*   Created: 2022/03/03 22:58:22 by bnaji             #+#    #+#             */
+/*   Updated: 2022/03/03 23:01:27 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+int	is_it_dead(t_philo *philo)
 {
-	int			i;
-	t_info		info;
-
-	if (ac < 5 || ac > 6)
-		error(1, &info);
-	i = 0;
-	init(&info);
-	while (++i < ac)
-		num_parser(i, av[i], &info);
-	locks_creater(&info);
-	philos_creator(&info);
-	main_free(&info);
+	if (updated_current_time(philo, 'r') - philo->ref_time
+		> (unsigned long)philo->t_2_die)
+	{
+		if (*philo->is_dead)
+		{
+			*philo->l_fork = 1;
+			*philo->r_fork = 1;
+			return (1);
+		}
+		ft_die(philo);
+		// printf("l_fork: %d\tr_fork: %d\n", *philo->l_fork, *philo->r_fork);
+		return (1);
+	}
 	return (0);
 }

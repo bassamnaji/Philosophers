@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:29:48 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/02 08:54:09 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/03 23:01:48 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ void	num_parser(int arg_num, char *str, t_info *info);
 void	*philo_manager(void *vargp);
 void	philo_init(t_info *info, int i);
 void	printer(t_philo *philo, char c);
+int		is_it_dead(t_philo *philo);
 
 #endif
