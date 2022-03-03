@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:32:49 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/02 08:09:45 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/02 09:17:15 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,23 @@ void	locks_allocater(t_info *info)
 	i = 0;
 	while (i < info->n_of_philos)
 	{
-		info->locks[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-				* (info->n_of_philos));
+		info->locks[i] = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 		if (!info->locks[i++])
+			error(6, info);
+	}
+	info->forks = (int **)malloc(sizeof(int *)
+			* (info->n_of_philos));
+	if (!info->forks)
+		error(6, info);
+	i = 0;
+	while (i < info->n_of_philos)
+		info->forks[i++] = NULL;
+	i = 0;
+	while (i < info->n_of_philos)
+	{
+		info->forks[i] = (int *)malloc(sizeof(int)
+				* (info->n_of_philos));
+		if (!info->forks[i++])
 			error(6, info);
 	}
 	info->is_dead = (int *)malloc(sizeof(int));
@@ -39,8 +53,7 @@ void	locks_allocater(t_info *info)
 	if (!info->useless_time)
 		error(6, info);
 	*info->useless_time = 0;
-	info->death_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			* (info->n_of_philos));
+	info->death_lock = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t));
 	if (!info->death_lock)
 		error(6, info);
 }
@@ -54,11 +67,12 @@ void	locks_creater(t_info *info)
 	while (i < info->n_of_philos)
 	{
 		pthread_mutex_init(info->locks[i], NULL);
-		info->philo[i].l_lock = info->locks[i];
+		*info->forks[i] = 1;
+		info->philo[i].l_fork = info->forks[i];
 		if (i == info->n_of_philos - 1)
-			info->philo[i].r_lock = info->locks[0];
+			info->philo[i].r_fork = info->forks[0];
 		else
-			info->philo[i].r_lock = info->locks[i + 1];
+			info->philo[i].r_fork = info->forks[i + 1];
 		i++;
 	}
 	pthread_mutex_init(info->death_lock, NULL);

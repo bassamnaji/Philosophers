@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 15:01:53 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/02 08:09:03 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/02 08:54:46 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ void	init(t_info *info)
 	info->useless_time = NULL;
 	info->thread = NULL;
 	info->philo = NULL;
+	info->forks = NULL;
 }
 
 void	philo_init(t_info *info, int i)
 {
 	info->philo[i].is_dead = info->is_dead;
 	info->philo[i].death_lock = info->death_lock;
+	info->philo[i].locks = info->locks[i];
 	info->philo[i].useless_time = info->useless_time;
 	info->philo[i].just_died = 0;
 	info->philo[i].philo_id = i;
