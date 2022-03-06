@@ -6,11 +6,11 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:57:45 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/01 19:48:24 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 08:37:18 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 static void	check_n_store(int arg_num, unsigned long long nb, t_info *info)
 {

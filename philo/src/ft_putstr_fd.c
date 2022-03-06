@@ -1,30 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/28 19:31:52 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/03 16:19:05 by bnaji            ###   ########.fr       */
+/*   Created: 2021/10/01 11:56:57 by bnaji             #+#    #+#             */
+/*   Updated: 2022/03/06 08:36:51 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
-int	main(int ac, char **av)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int			i;
-	t_info		info;
-
-	if (ac < 5 || ac > 6)
-		error(1, &info);
-	i = 0;
-	init(&info);
-	while (++i < ac)
-		num_parser(i, av[i], &info);
-	locks_creater(&info);
-	philos_creator(&info);
-	main_free(&info);
-	return (0);
+	if (!s)
+		return ;
+	write(fd, s, ft_strlen(s));
 }

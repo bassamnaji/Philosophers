@@ -6,11 +6,11 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 15:18:10 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/02 09:19:20 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 08:37:22 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int	ft_eat(t_philo *philo)
 {

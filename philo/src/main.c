@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/26 16:59:03 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/06 13:44:23 by bnaji            ###   ########.fr       */
+/*   Created: 2022/01/28 19:31:52 by bnaji             #+#    #+#             */
+/*   Updated: 2022/03/06 08:37:13 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
-size_t	ft_strlen(const char *str)
+int	main(int ac, char **av)
 {
-	int	n;
+	int			i;
+	t_info		info;
 
-	n = 0;
-	while (str[n])
-		n++;
-	return (n);
+	if (ac < 5 || ac > 6)
+		error(1, &info);
+	i = 0;
+	init(&info);
+	while (++i < ac)
+		num_parser(i, av[i], &info);
+	locks_creater(&info);
+	philos_creator(&info);
+	main_free(&info);
+	return (0);
 }

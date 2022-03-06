@@ -6,11 +6,11 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:32:49 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/02 09:17:15 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 08:37:09 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void	locks_allocater(t_info *info)
 {
@@ -49,6 +49,10 @@ void	locks_allocater(t_info *info)
 	if (!info->is_dead)
 		error(6, info);
 	*info->is_dead = 0;
+	info->cnt = (int *)malloc(sizeof(int));
+	if (!info->cnt)
+		error(6, info);
+	*info->cnt = 0;
 	info->useless_time = (unsigned long *)malloc(sizeof(unsigned long));
 	if (!info->useless_time)
 		error(6, info);

@@ -6,18 +6,17 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 11:16:44 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/02 11:45:08 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 08:36:59 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int	ft_usleep(t_philo *philo, char c)
 {
 	int	t;
 
 	t = 0;
-	philo->cnt = 0;
 	philo->tmp = 0;
 	if (c == 'e')
 		t = philo->t_2_eat;

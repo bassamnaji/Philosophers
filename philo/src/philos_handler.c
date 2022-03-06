@@ -6,11 +6,11 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:34:02 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/03 23:03:08 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 08:37:26 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int	take_forks(t_philo *philo)
 {
@@ -41,41 +41,42 @@ void	*philo_manager(void *vargp)
 	t_philo	*philo;
 
 	philo = (t_philo *)vargp;
-	*philo->useless_time = updated_current_time(philo, 'r');
-	philo->ref_time = *philo->useless_time;
+	// *philo->useless_time = updated_current_time(philo, 'r');
+	// philo->ref_time = *philo->useless_time;
 	while (philo->n_times_of_eat && !*philo->is_dead)
 	{
-		// if (updated_current_time(philo, 'r') - philo->ref_time
-		// 	> (unsigned long)philo->t_2_die)
-		// {
-		// 	if (*philo->is_dead)
-		// 	{
-		// 		*philo->l_fork = 1;
-		// 		*philo->r_fork = 1;
-		// 		return (NULL);
-		// 	}
-		// 	ft_die(philo);
-		// 	printf("l_fork: %d\tr_fork: %d\n", *philo->l_fork, *philo->r_fork);
-		// 	return (NULL);
-		// }
 		if (is_it_dead(philo))
 			return (NULL);
 		// if (philo->n_of_philos % 2 && philo->philo_id == philo->n_of_philos - 1)
 		// 	*philo->l_fork = 1;
-		pthread_mutex_lock(philo->locks);
-		if (!(philo->philo_id % 2) && *philo->l_fork && *philo->r_fork)
+		// pthread_mutex_lock(philo->death_lock);
+		if (!(philo->n_of_philos % 2))
 		{
-			*philo->l_fork = 0;
-			*philo->r_fork = 0;
+			if ((*philo->cnt < philo->n_of_philos / 2) && !(philo->philo_id % 2) && *philo->l_fork && *philo->r_fork)
+			{
+				*philo->l_fork = 0;
+				*philo->r_fork = 0;
+				(*philo->cnt)++;
+				philo->is_ready = 1;
+				printf("cnt= %d\n", *philo->cnt);
+			}
+			else if ((*philo->cnt >= philo->n_of_philos / 2) && (philo->philo_id % 2) && *philo->l_fork && *philo->r_fork)
+			{
+				*philo->l_fork = 0;
+				*philo->r_fork = 0;
+				philo->is_ready = 1;
+				(*philo->cnt)++;
+				if (*philo->cnt == philo->n_of_philos)
+					*philo->cnt = 0;
+				printf("cnt: %d\t id: %d\n", *philo->cnt, philo->philo_id);
+			}
+		}
+		// pthread_mutex_unlock(philo->death_lock);
+		if (philo->is_ready)
+		{
+			philo->is_ready = 0;
 			take_forks(philo);
 		}
-		else if (philo->philo_id % 2 && *philo->l_fork && *philo->r_fork)
-		{
-			*philo->r_fork = 0;
-			*philo->l_fork = 0;
-			take_forks(philo);
-		}
-		pthread_mutex_unlock(philo->locks);
 	}
 	return (NULL);
 }
@@ -87,9 +88,9 @@ void	philos_creator(t_info *info)
 	i = 0;
 	while (i < info->n_of_philos)
 	{
+		if (!i)
+			*info->useless_time = updated_current_time(info->philo, 'r');
 		philo_init(info, i);
-		// if (!i)
-		// 	*info->useless_time = updated_current_time(info->philo, 'r');
 		i++;
 	}
 	i = 0;

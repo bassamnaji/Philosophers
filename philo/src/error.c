@@ -6,11 +6,11 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 14:11:16 by bnaji             #+#    #+#             */
-/*   Updated: 2022/02/26 19:22:40 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 08:36:40 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void	error(int n, t_info *info)
 {

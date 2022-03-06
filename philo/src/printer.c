@@ -6,11 +6,11 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 08:00:54 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/02 08:18:40 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 08:37:31 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void	printer(t_philo *philo, char c)
 {

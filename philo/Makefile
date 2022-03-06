@@ -37,13 +37,13 @@ OBJ_NAME = $(addprefix $(OBJ_DIR), ${C_FILES:%.c=%.o})
 CFLAG = -Wall -Wextra -Werror
 
 #Here is the the source directory for .c files of your project
-SRC_DIR = ./philo/
+SRC_DIR = ./src/
 
 #Here is the the objects directory for .c files of your project
 OBJ_DIR = ./objs/
 
 #Here is the Executable file's name
-NAME = philos
+NAME = philo
 
 all: header $(OBJ_NAME)
 	@gcc -pthread $(OBJ_NAME) -o $(NAME)

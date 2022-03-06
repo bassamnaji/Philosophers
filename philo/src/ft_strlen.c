@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_current_time.c                              :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/02/06 15:20:52 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/01 19:37:30 by bnaji            ###   ########.fr       */
+/*   Created: 2021/09/26 16:59:03 by bnaji             #+#    #+#             */
+/*   Updated: 2022/03/06 08:36:55 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
-int	updated_current_time(t_philo *philo, char c)
+size_t	ft_strlen(const char *str)
 {
-	gettimeofday(&philo->current_time, NULL);
-	if (c == 'r')
-		philo->c_time = philo->current_time.tv_sec * 1000
-			+ philo->current_time.tv_usec / 1000;
-	else if (c == 'c')
-		philo->c_time = (philo->current_time.tv_sec * 1000
-				+ philo->current_time.tv_usec / 1000) - *philo->useless_time;
-	return (philo->c_time);
+	int	n;
+
+	n = 0;
+	while (str[n])
+		n++;
+	return (n);
 }
