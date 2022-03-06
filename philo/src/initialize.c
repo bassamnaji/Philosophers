@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 15:01:53 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/06 08:37:03 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 22:11:58 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ void	philo_init(t_info *info, int i)
 {
 	info->philo[i].is_dead = info->is_dead;
 	info->philo[i].death_lock = info->death_lock;
-	info->philo[i].locks = info->locks[i];
+	info->philo[i].cnt_lock = info->cnt_lock;
+	// info->philo[i].locks = info->locks[i];
 	info->philo[i].useless_time = info->useless_time;
 	info->philo[i].ref_time = *info->useless_time;
 	info->philo[i].just_died = 0;

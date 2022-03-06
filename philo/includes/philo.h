@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:29:48 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/05 14:56:35 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/06 22:13:04 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,11 @@ typedef struct s_philo
 	// pthread_mutex_t	*l_lock;
 	int				*r_fork;
 	int				*l_fork;
-	pthread_mutex_t	*locks;
+	// pthread_mutex_t	*locks;
+	pthread_mutex_t	*r_lock;
+	pthread_mutex_t	*l_lock;
 	pthread_mutex_t	*death_lock;
+	pthread_mutex_t	*cnt_lock;
 }				t_philo;
 
 typedef struct s_info
@@ -69,6 +72,7 @@ typedef struct s_info
 	int				*cnt;
 	unsigned long	*useless_time;
 	pthread_mutex_t	*death_lock;
+	pthread_mutex_t	*cnt_lock;
 	pthread_mutex_t	**locks;
 	int				**forks;
 	pthread_t		*thread;
