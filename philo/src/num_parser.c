@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:57:45 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/06 08:37:18 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/07 20:22:09 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	check_n_store(int arg_num, unsigned long long nb, t_info *info)
 {
-	if ((nb > 200 || !nb) && arg_num == 1)
+	if (!nb)
 		error(5, info);
 	if (arg_num == 1)
 	{

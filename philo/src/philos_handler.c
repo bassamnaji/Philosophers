@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:34:02 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/06 22:25:49 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/07 20:30:12 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,6 @@ int	take_forks(t_philo *philo)
 {
 	if (philo->n_of_philos == 1)
 		return (0);
-	if (*philo->is_dead)
-		return (1);
-	pthread_mutex_lock(philo->death_lock);
-	printer(philo, 'f');
-	pthread_mutex_unlock(philo->death_lock);
-	if (*philo->is_dead)
-		return (1);
-	pthread_mutex_lock(philo->death_lock);
-	printer(philo, 'f');
-	pthread_mutex_unlock(philo->death_lock);
 	philo->ref_time = updated_current_time(philo, 'r');
 	if (ft_eat(philo))
 		return (1);
@@ -39,7 +29,6 @@ int	take_forks(t_philo *philo)
 void	*philo_manager(void *vargp)
 {
 	t_philo	*philo;
-	int i;
 
 	philo = (t_philo *)vargp;
 	// *philo->useless_time = updated_current_time(philo, 'r');
@@ -55,82 +44,110 @@ void	*philo_manager(void *vargp)
 		{
 			pthread_mutex_lock(philo->l_lock);
 			pthread_mutex_lock(philo->r_lock);
-			// printf("HERE\n");
-			if (/* (*philo->cnt < philo->n_of_philos / 2) && */ !(philo->philo_id % 2) && *philo->l_fork && *philo->r_fork)
+			if (*philo->l_fork && *philo->r_fork)
 			{
 				*philo->l_fork = 0;
+				pthread_mutex_lock(philo->death_lock);
+				printer(philo, 'f');
+				pthread_mutex_unlock(philo->death_lock);
+				if (*philo->is_dead)
+				{
+					pthread_mutex_unlock(philo->l_lock);
+					pthread_mutex_unlock(philo->r_lock);
+					return (NULL);
+				}
 				*philo->r_fork = 0;
-				// (*philo->cnt)++;
+				pthread_mutex_lock(philo->death_lock);
+				printer(philo, 'f');
+				pthread_mutex_unlock(philo->death_lock);
+				if (*philo->is_dead)
+				{
+					pthread_mutex_unlock(philo->l_lock);
+					pthread_mutex_unlock(philo->r_lock);
+					return (NULL);
+				}
 				philo->is_ready = 1;
-				// printf("cnt= %d\n", *philo->cnt);
-			}
-			else if (/* (*philo->cnt >= philo->n_of_philos / 2) &&  */(philo->philo_id % 2) && *philo->l_fork && *philo->r_fork)
-			{
-				*philo->l_fork = 0;
-				*philo->r_fork = 0;
-				philo->is_ready = 1;
-				// (*philo->cnt)++;
-				// if (*philo->cnt == philo->n_of_philos)
-				// 	*philo->cnt = 0;
-				// printf("cnt: %d\t id: %d\n", *philo->cnt, philo->philo_id);
 			}
 			pthread_mutex_unlock(philo->l_lock);
 			pthread_mutex_unlock(philo->r_lock);
 		}
 		else
 		{
-			pthread_mutex_lock(philo->l_lock);
-			pthread_mutex_lock(philo->r_lock);
-			pthread_mutex_lock(philo->cnt_lock);
-			if ((*philo->l_fork && *philo->cnt == philo->n_of_philos / 2) || (*philo->l_fork && *philo->cnt == philo->n_of_philos - 1))
+			if (!(philo->philo_id % 2))
 			{
-				if (*philo->l_fork && *philo->cnt == philo->n_of_philos - 1)
-					*philo->cnt = 0;
-				*philo->l_fork = 0;
-				i = 0;
-				// printf("id: %d\t cnt: %d\n", philo->philo_id + 1, *philo->cnt);
-				while (!*philo->r_fork)
+				pthread_mutex_lock(philo->l_lock);
+				if (*philo->l_fork)
 				{
-					if (is_it_dead(philo))
-					{
-						pthread_mutex_unlock(philo->cnt_lock);
-						pthread_mutex_unlock(philo->r_lock);
-						pthread_mutex_unlock(philo->l_lock);
+					*philo->l_fork = 0;
+					pthread_mutex_unlock(philo->l_lock);
+					pthread_mutex_lock(philo->death_lock);
+					printer(philo, 'f');
+					pthread_mutex_unlock(philo->death_lock);
+					if (*philo->is_dead)
 						return (NULL);
+					pthread_mutex_lock(philo->r_lock);
+					if (!(*philo->r_fork))
+					{
+						while (!(*philo->r_fork))
+						{
+							if (is_it_dead(philo))
+								return (NULL);
+						}
 					}
-					// printf("id: %d\n", philo->philo_id);
-					// usleep(100000);
+					*philo->r_fork = 0;
+					pthread_mutex_unlock(philo->r_lock);
+					pthread_mutex_lock(philo->death_lock);
+					printer(philo, 'f');
+					pthread_mutex_unlock(philo->death_lock);
+					if (*philo->is_dead)
+						return (NULL);
+					philo->is_ready = 1;
 				}
-				// printf("id= %d\n", philo->philo_id + 1);
-				*philo->r_fork = 0;
-				philo->is_ready = 1;
+				else
+					pthread_mutex_unlock(philo->l_lock);
 			}
-			if (*philo->l_fork && *philo->r_fork)
-				(*philo->cnt)++;
-			pthread_mutex_unlock(philo->cnt_lock);
-			if (*philo->cnt < philo->n_of_philos / 2 && !(philo->philo_id % 2) && *philo->l_fork && *philo->r_fork)
+			else if (philo->philo_id % 2)
 			{
-				*philo->l_fork = 0;
-				*philo->r_fork = 0;
-				philo->is_ready = 1;
-				// printf("cnt= %d\n", *philo->cnt);
+				pthread_mutex_lock(philo->r_lock);
+				if (*philo->r_fork)
+				{
+					*philo->r_fork = 0;
+					pthread_mutex_unlock(philo->r_lock);
+					pthread_mutex_lock(philo->death_lock);
+					printer(philo, 'f');
+					pthread_mutex_unlock(philo->death_lock);
+					if (*philo->is_dead)
+						return (NULL);
+					pthread_mutex_lock(philo->l_lock);
+					if (!(*philo->l_fork))
+					{
+						while (!(*philo->l_fork))
+						{
+							if (is_it_dead(philo))
+								return (NULL);
+						}
+					}
+					*philo->l_fork = 0;
+					pthread_mutex_unlock(philo->l_lock);
+					pthread_mutex_lock(philo->death_lock);
+					printer(philo, 'f');
+					pthread_mutex_unlock(philo->death_lock);
+					if (*philo->is_dead)
+						return (NULL);
+					philo->is_ready = 1;
+				}
+				else
+					pthread_mutex_unlock(philo->r_lock);
 			}
-			else if (*philo->cnt >= philo->n_of_philos / 2 && (philo->philo_id % 2) && *philo->l_fork && *philo->r_fork)
-			{
-				*philo->l_fork = 0;
-				*philo->r_fork = 0;
-				philo->is_ready = 1;
-				// printf("cnt: %d\t id: %d\n", *philo->cnt, philo->philo_id);
-			}
-			pthread_mutex_unlock(philo->l_lock);
-			pthread_mutex_unlock(philo->r_lock);
+
 		}
 		// pthread_mutex_unlock(philo->death_lock);
 		if (philo->is_ready)
 		{
 			// printf("id == %d\n", philo->philo_id + 1);
 			philo->is_ready = 0;
-			take_forks(philo);
+			if (take_forks(philo))
+				return (NULL);
 		}
 	}
 	return (NULL);
@@ -148,13 +165,14 @@ void	philos_creator(t_info *info)
 		if (!(i % 2))
 			philo_init(info, i);
 		i++;
+		// usleep(100);
 	}
 	usleep(1000);
 	i = 0;
 	while (i < info->n_of_philos)
 	{
 		if (i % 2)
-			philo_init(info, i);
+			philo_init(info, i);	
 		i++;
 	}
 	i = 0;

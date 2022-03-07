@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 14:11:16 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/06 08:36:40 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/07 20:22:32 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	error(int n, t_info *info)
 	else if (n == 4)
 		ft_putstr_fd("arguments must not exceed INT_MAX\n", 2);
 	else if (n == 5)
-		ft_putstr_fd("number of philosopher must not exceed 512\n", 2);
+		ft_putstr_fd("arguments must not be equal to zero\n", 2);
 	else if (n == 6)
 	{
 		ft_putstr_fd("Failed malloc\n", 2);

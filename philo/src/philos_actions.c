@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 15:18:10 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/06 08:37:22 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/07 20:30:28 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ int	ft_eat(t_philo *philo)
 	}
 	*philo->l_fork = 1;
 	*philo->r_fork = 1;
-	// pthread_mutex_unlock(philo->l_lock);
-	// pthread_mutex_unlock(philo->r_lock);
 	if (ft_sleep(philo))
 		return (1);
 	return (0);
@@ -64,5 +62,4 @@ void	ft_die(t_philo *philo)
 	*philo->l_fork = 1;
 	*philo->r_fork = 1;
 	pthread_mutex_unlock(philo->death_lock);
-	philo->just_died = 1;
 }

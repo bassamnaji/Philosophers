@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:34:02 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/06 20:04:25 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/07 20:23:52 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,6 @@ void	philos_creator(t_info *info)
 	while (i < info->n_of_philos)
 	{
 		pthread_join(info->thread[i], NULL);
-		if (info->philo[i].just_died)
-		{
-			j = 0;
-			while (j < info->n_of_philos)
-				pthread_mutex_unlock(info->philo[j++].l_lock);
-		}
 		i++;
 	}
 	i = 0;

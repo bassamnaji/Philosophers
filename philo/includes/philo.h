@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:29:48 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/06 22:13:04 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/07 20:30:57 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ typedef struct s_philo
 	int				t_2_eat;
 	int				t_2_sleep;
 	int				*is_dead;
-	int				just_died;
 	int				is_greek;
 	int				is_ready;
 	int				n_times_of_eat;
@@ -50,11 +49,8 @@ typedef struct s_philo
 	unsigned long	ref_time;
 	char			philo_status;
 	int				time_diff_from_last_eat;
-	// pthread_mutex_t	*r_lock;
-	// pthread_mutex_t	*l_lock;
 	int				*r_fork;
 	int				*l_fork;
-	// pthread_mutex_t	*locks;
 	pthread_mutex_t	*r_lock;
 	pthread_mutex_t	*l_lock;
 	pthread_mutex_t	*death_lock;
