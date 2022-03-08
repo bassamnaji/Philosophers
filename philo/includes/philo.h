@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:29:48 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/07 20:30:57 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/08 09:15:11 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_philo
 	struct timeval	current_time;
 	unsigned long	c_time;
 	unsigned long	*useless_time;
-	int				*cnt;
 	int				tmp;
 	unsigned long	ref_time;
 	char			philo_status;
@@ -54,7 +53,6 @@ typedef struct s_philo
 	pthread_mutex_t	*r_lock;
 	pthread_mutex_t	*l_lock;
 	pthread_mutex_t	*death_lock;
-	pthread_mutex_t	*cnt_lock;
 }				t_philo;
 
 typedef struct s_info
@@ -65,10 +63,8 @@ typedef struct s_info
 	int				t_2_sleep;
 	int				n_times_of_eat;
 	int				*is_dead;
-	int				*cnt;
 	unsigned long	*useless_time;
 	pthread_mutex_t	*death_lock;
-	pthread_mutex_t	*cnt_lock;
 	pthread_mutex_t	**locks;
 	int				**forks;
 	pthread_t		*thread;
@@ -93,5 +89,9 @@ void	*philo_manager(void *vargp);
 void	philo_init(t_info *info, int i);
 void	printer(t_philo *philo, char c);
 int		is_it_dead(t_philo *philo);
+void	lock_n_print(t_philo *philo, char c);
+int		is_even(t_philo *philo);
+int		is_odd(t_philo *philo);
+void	main_allocation(t_info *info);
 
 #endif

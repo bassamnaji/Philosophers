@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 08:00:54 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/06 08:37:31 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/08 08:55:49 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,11 @@ void	printer(t_philo *philo, char c)
 	else if (c == 'd')
 		printf("%s%d %d died%s\n", RED,
 			tmp, philo->philo_id + 1, NO_COLOR);
+}
+
+void	lock_n_print(t_philo *philo, char c)
+{
+	pthread_mutex_lock(philo->death_lock);
+	printer(philo, c);
+	pthread_mutex_unlock(philo->death_lock);
 }
