@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/21 11:16:44 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/08 10:25:58 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/08 13:30:35 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ int	ft_usleep(t_philo *philo, char c)
 		t = philo->t_2_sleep;
 	while (philo->tmp < t)
 	{
-		pthread_mutex_lock(philo->death_lock);
-		if (*philo->is_dead)
+		if (is_dead_flag(philo))
 			return (1);
-		pthread_mutex_unlock(philo->death_lock);
 		gettimeofday(&philo->current_time, NULL);
 		if (c == 'e')
 			philo->tmp = (philo->current_time.tv_sec * 1000

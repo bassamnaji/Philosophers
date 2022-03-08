@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/26 14:34:02 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/08 09:07:05 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/08 13:39:10 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ void	*philo_manager(void *vargp)
 	t_philo	*philo;
 
 	philo = (t_philo *)vargp;
-	while (philo->n_times_of_eat && !*philo->is_dead)
+	while (philo->n_times_of_eat)
 	{
+		if (is_dead_flag(philo))
+			return (NULL);
 		if (is_it_dead(philo))
 			return (NULL);
 		if (!(philo->philo_id % 2))

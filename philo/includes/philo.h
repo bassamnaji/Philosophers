@@ -6,7 +6,7 @@
 /*   By: bnaji <bnaji@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 13:29:48 by bnaji             #+#    #+#             */
-/*   Updated: 2022/03/08 09:15:11 by bnaji            ###   ########.fr       */
+/*   Updated: 2022/03/08 13:28:28 by bnaji            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,5 +93,6 @@ void	lock_n_print(t_philo *philo, char c);
 int		is_even(t_philo *philo);
 int		is_odd(t_philo *philo);
 void	main_allocation(t_info *info);
+int		is_dead_flag(t_philo *philo);
 
 #endif
